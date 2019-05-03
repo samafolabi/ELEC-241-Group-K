@@ -1,0 +1,19 @@
+{C:/Users/emper/OneDrive - University of Plymouth/ELEC241/spi/tests/adc_test/adc_controller_tb.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/emper/OneDrive - University of Plymouth/ELEC241/spi/tests/adc_test/adc_controller_tb.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity adc_controller_test
+-- Compiling architecture v1 of adc_controller_test
+
+} {} {}} {C:/Users/emper/OneDrive - University of Plymouth/ELEC241/spi/adc_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/emper/OneDrive - University of Plymouth/ELEC241/spi/adc_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity adc_controller
+-- Compiling architecture rtl of adc_controller
+
+} {} {}}
