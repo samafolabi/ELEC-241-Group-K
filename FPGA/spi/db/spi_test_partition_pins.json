@@ -1,0 +1,197 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "MISO",
+					"strict" : false
+				},
+				{
+					"name" : "LED_0",
+					"strict" : false
+				},
+				{
+					"name" : "LED_1",
+					"strict" : false
+				},
+				{
+					"name" : "LED_2",
+					"strict" : false
+				},
+				{
+					"name" : "LED_4",
+					"strict" : false
+				},
+				{
+					"name" : "LED_3",
+					"strict" : false
+				},
+				{
+					"name" : "LED_5",
+					"strict" : false
+				},
+				{
+					"name" : "LED_6",
+					"strict" : false
+				},
+				{
+					"name" : "LED_7",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D7",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D6",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D5",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D4",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D3",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D2",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D1",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_D0",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_RW",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_RS",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_E",
+					"strict" : false
+				},
+				{
+					"name" : "OUT1",
+					"strict" : false
+				},
+				{
+					"name" : "OUT2",
+					"strict" : false
+				},
+				{
+					"name" : "OUT3",
+					"strict" : false
+				},
+				{
+					"name" : "SPACE1",
+					"strict" : false
+				},
+				{
+					"name" : "SPACE2",
+					"strict" : false
+				},
+				{
+					"name" : "SPACE3",
+					"strict" : false
+				},
+				{
+					"name" : "CS_N",
+					"strict" : false
+				},
+				{
+					"name" : "RESET_BUTTON",
+					"strict" : false
+				},
+				{
+					"name" : "X50MHz_CLK",
+					"strict" : false
+				},
+				{
+					"name" : "CLK",
+					"strict" : false
+				},
+				{
+					"name" : "IN1",
+					"strict" : false
+				},
+				{
+					"name" : "IN2",
+					"strict" : false
+				},
+				{
+					"name" : "IN3",
+					"strict" : false
+				},
+				{
+					"name" : "SCLK_IN",
+					"strict" : false
+				},
+				{
+					"name" : "LCD_CS_N",
+					"strict" : false
+				},
+				{
+					"name" : "MOSI_IN",
+					"strict" : false
+				},
+				{
+					"name" : "WRITE_REQ",
+					"strict" : false
+				},
+				{
+					"name" : "CLR",
+					"strict" : false
+				},
+				{
+					"name" : "READ_REQ",
+					"strict" : false
+				},
+				{
+					"name" : "Switch_3",
+					"strict" : false
+				},
+				{
+					"name" : "Switch_2",
+					"strict" : false
+				},
+				{
+					"name" : "Switch_1",
+					"strict" : false
+				},
+				{
+					"name" : "Switch_0",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

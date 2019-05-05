@@ -1,0 +1,100 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/qsim
+Espi_test
+Z1 w1556901790
+Z2 DPx10 cycloneive 20 cycloneive_atom_pack 0 22 K`kJb<]?z4U5EbkG_:lMO3
+Z3 DPx10 cycloneive 21 cycloneive_components 0 22 HFZ8mBI5?[8TM9e2YGWCa2
+Z4 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z5 DPx6 altera 11 dffeas_pack 0 22 zWCf]NF6heG=Dhmc@B0=T2
+Z6 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z7 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z8 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z9 DPx6 altera 28 altera_primitives_components 0 22 _Q9E2TD5YB<<@P0[5jYTG0
+R0
+Z10 8spi_test.vho
+Z11 Fspi_test.vho
+l0
+L37
+V[Z]4P]^mNE0;Xei@kgRd=3
+!s100 ;@3P@GN^fZgH:U?gToEP72
+Z12 OV;C;10.5b;63
+32
+!s110 1556901793
+!i10b 1
+Z13 !s108 1556901793.000000
+Z14 !s90 -work|work|spi_test.vho|
+Z15 !s107 spi_test.vho|
+!i113 1
+Z16 o-work work
+Z17 tExplicit 1 CvgOpt 0
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+DEx4 work 8 spi_test 0 22 [Z]4P]^mNE0;Xei@kgRd=3
+l1408
+L95
+VeAGROiC[>UjB4a8a9K]]g3
+!s100 b]C`dJcWO[]2>4oJHARSm3
+R12
+32
+!s110 1556901794
+!i10b 1
+R13
+R14
+R15
+!i113 1
+R16
+R17
+Espi_test_vhd_vec_tst
+Z18 w1556901785
+R7
+R8
+R0
+Z19 8Waveform.vwf.vht
+Z20 FWaveform.vwf.vht
+l0
+L32
+V:LbF3^ljW9616>24j34Jh0
+!s100 Y5ACgBgTlk^R0Io;l>NUn3
+R12
+32
+Z21 !s110 1556901795
+!i10b 1
+Z22 !s108 1556901795.000000
+Z23 !s90 -work|work|Waveform.vwf.vht|
+Z24 !s107 Waveform.vwf.vht|
+!i113 1
+R16
+R17
+Aspi_test_arch
+R7
+R8
+Z25 DEx4 work 20 spi_test_vhd_vec_tst 0 22 :LbF3^ljW9616>24j34Jh0
+l139
+L34
+Z26 VSc>C_YPI>`6g0kPlznzPa1
+Z27 !s100 eombYUPcL^gLV2l@jcT?X3
+R12
+32
+R21
+!i10b 1
+R22
+R23
+R24
+!i113 1
+R16
+R17
