@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity encoder_controller is
 	generic(
-		T_BITS 				:	integer := 7
+		T_BITS 				:	integer := 8
 	);
 	port(
 		STATE					:	in std_logic;
@@ -22,8 +22,9 @@ end entity;
 
 architecture rtl of encoder_controller is
 	signal old_angle : std_logic_vector(T_BITS-1 downto 0) := (others => '0');
-	signal cnt, turns, max : integer := 0;
-	signal dir : std_logic := '0'; --0 for cw, 1 for ccw
+	signal turns, max : integer := 0;
+	signal cnt : std_logic_vector(1 downto 0) := "00";
+	signal dir, a_cnt1, a_cnt2, b_cnt1, b_cnt2, rst_turns, r_turns : std_logic := '0'; --0 for cw, 1 for ccw
 begin
 	
 	process(CHANGED, FEEDBACK_A, FEEDBACK_B)
@@ -34,59 +35,55 @@ begin
 			l := to_integer(unsigned(old_angle)) - to_integer(unsigned(ANGLE));
 			if (abs(r) < abs(l)) then x := r; else x := l; end if;
 			if (x < 0) then
-				turns <= 0;
+				--turns <= 0;
 				max <= x;
 				dir <= '0';
 			else
-				turns <= 0;
+				--turns <= 0;
 				max <= x;
 				dir <= '1';
 			end if;
 		end if;
 		
 		if (rising_edge(FEEDBACK_A)) then
-			if (dir = '0' and cnt = 0) then
-				cnt <= 1;
-			elsif (dir = '1' and cnt = 1)
-				cnt <= 2;
-			end if;
-		elsif (rising_edge(FEEDBACK_B)) then
-			if (dir = '0' and cnt = 1) then
-				cnt <= 2;
-			elsif (dir = '1' and cnt = 0)
-				cnt <= 1;
-			end if;
+			a_cnt1 <= not a_cnt1;
 		elsif (falling_edge(FEEDBACK_A)) then
-			if (dir = '0' and cnt = 2) then
-				cnt <= 3;
-			elsif (dir = '1' and cnt = 3)
-				cnt <= 0;
-				turns <= turns + 1;
-			end if;
+			a_cnt2 <= not a_cnt2;
+		end if;
+		
+		if (rising_edge(FEEDBACK_B)) then
+			b_cnt1 <= not b_cnt1;
 		elsif (falling_edge(FEEDBACK_B)) then
-			if (dir = '0' and cnt = 3) then
-				cnt <= 0;
-				turns <= turns + 1;
-			elsif (dir = '1' and cnt = 2)
-				cnt <= 3;
-			end if;
+			b_cnt2 <= not b_cnt2;
+		end if;
+	end process;
+	
+	process(a_cnt1, a_cnt2, b_cnt1, b_cnt2, rst_turns)
+	begin
+		if (rst_turns = not r_turns) then
+			turns <= 0;
+			r_turns <= not r_turns;
+		elsif (((a_cnt1 = a_cnt2) and (b_cnt1 = b_cnt2)) and (b_cnt1 = a_cnt1)) then
+			turns <= turns + 1;
 		end if;
 	end process;
 	
 	process(turns)
 	begin
 		if (turns = 0) then
+			GOING <= '1';
 			if (max < 0) then
-				GOING <= '1';
 				MOTOR_A <= '1'; --CW
 			else
-				GOING <= '1';
 				MOTOR_B <= '1'; --CCW
 			end if;
-		elsif (turns = abs(max))
+		elsif (turns = abs(max)) then
 			GOING <= '0';
 			MOTOR_A <= '0';
 			MOTOR_B <= '0';
+			rst_turns <= not rst_turns;
+		else
+			GOING <= '1';
 		end if;
 	end process;
 

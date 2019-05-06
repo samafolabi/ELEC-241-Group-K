@@ -1,5 +1,5 @@
 EDA Netlist Writer report for spi_test
-Fri May 03 17:43:11 2019
+Mon May 06 21:02:43 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -37,7 +37,7 @@ agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Fri May 03 17:43:10 2019 ;
+; EDA Netlist Writer Status ; Successful - Mon May 06 21:02:43 2019 ;
 ; Revision Name             ; spi_test                              ;
 ; Top-level Entity Name     ; spi_test                              ;
 ; Family                    ; Cyclone IV E                          ;
@@ -51,7 +51,8 @@ agreement for further details.
 ; Option                                                                                            ; Setting                ;
 +---------------------------------------------------------------------------------------------------+------------------------+
 ; Tool Name                                                                                         ; ModelSim-Altera (VHDL) ;
-; Generate functional simulation netlist                                                            ; On                     ;
+; Generate functional simulation netlist                                                            ; Off                    ;
+; Time scale                                                                                        ; 1 ps                   ;
 ; Truncate long hierarchy paths                                                                     ; Off                    ;
 ; Map illegal HDL characters                                                                        ; Off                    ;
 ; Flatten buses into individual nodes                                                               ; Off                    ;
@@ -66,13 +67,20 @@ agreement for further details.
 +---------------------------------------------------------------------------------------------------+------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------+
-; Simulation Generated Files                                                                                       ;
-+------------------------------------------------------------------------------------------------------------------+
-; Generated Files                                                                                                  ;
-+------------------------------------------------------------------------------------------------------------------+
-; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/qsim//spi_test.vho ;
-+------------------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Simulation Generated Files                                                                                                                 ;
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Generated Files                                                                                                                            ;
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_6_1200mv_85c_slow.vho      ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_6_1200mv_0c_slow.vho       ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_min_1200mv_0c_fast.vho     ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test.vho                        ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_6_1200mv_85c_vhd_slow.sdo  ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_6_1200mv_0c_vhd_slow.sdo   ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_min_1200mv_0c_vhd_fast.sdo ;
+; C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/spi_test_vhd.sdo                    ;
++--------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------+
@@ -81,31 +89,21 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Copyright (C) 2016  Intel Corporation. All rights reserved.
-    Info: Your use of Intel Corporation's design tools, logic functions 
-    Info: and other software and tools, and its AMPP partner logic 
-    Info: functions, and any output files from any of the foregoing 
-    Info: (including device programming or simulation files), and any 
-    Info: associated documentation or information are expressly subject 
-    Info: to the terms and conditions of the Intel Program License 
-    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
-    Info: the Intel MegaCore Function License Agreement, or other 
-    Info: applicable license agreement, including, without limitation, 
-    Info: that your use is for the sole purpose of programming logic 
-    Info: devices manufactured by Intel and sold by Intel or its 
-    Info: authorized distributors.  Please refer to the applicable 
-    Info: agreement for further details.
-    Info: Processing started: Fri May 03 17:43:06 2019
-Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/qsim/" spi_test -c spi_test
-Info (119006): Selected device EP4CE22F17C6 for design "spi_test"
-Info (15535): Implemented PLL "spi_PLL:inst14|altpll:altpll_component|spi_PLL_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/db/spi_pll_altpll.v Line: 44
-    Info (15099): Implementing clock multiplication of 1, clock division of 25, and phase shift of 0 degrees (0 ps) for spi_PLL:inst14|altpll:altpll_component|spi_PLL_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/db/spi_pll_altpll.v Line: 44
+    Info: Processing started: Mon May 06 21:02:26 2019
+Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off spi_test -c spi_test
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (204019): Generated file spi_test.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file spi_test_6_1200mv_85c_slow.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test_6_1200mv_0c_slow.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test_min_1200mv_0c_fast.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test_6_1200mv_85c_vhd_slow.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test_6_1200mv_0c_vhd_slow.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test_min_1200mv_0c_vhd_fast.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file spi_test_vhd.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4648 megabytes
-    Info: Processing ended: Fri May 03 17:43:11 2019
-    Info: Elapsed time: 00:00:05
-    Info: Total CPU time (on all processors): 00:00:04
+    Info: Peak virtual memory: 4666 megabytes
+    Info: Processing ended: Mon May 06 21:02:44 2019
+    Info: Elapsed time: 00:00:18
+    Info: Total CPU time (on all processors): 00:00:11
 
 

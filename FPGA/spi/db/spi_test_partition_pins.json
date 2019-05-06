@@ -8,38 +8,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "LED_0",
-					"strict" : false
-				},
-				{
-					"name" : "LED_1",
-					"strict" : false
-				},
-				{
-					"name" : "LED_2",
-					"strict" : false
-				},
-				{
-					"name" : "LED_4",
-					"strict" : false
-				},
-				{
-					"name" : "LED_3",
-					"strict" : false
-				},
-				{
-					"name" : "LED_5",
-					"strict" : false
-				},
-				{
-					"name" : "LED_6",
-					"strict" : false
-				},
-				{
-					"name" : "LED_7",
-					"strict" : false
-				},
-				{
 					"name" : "LCD_D7",
 					"strict" : false
 				},
@@ -84,27 +52,23 @@
 					"strict" : false
 				},
 				{
-					"name" : "OUT1",
+					"name" : "ADC_CS_N",
 					"strict" : false
 				},
 				{
-					"name" : "OUT2",
+					"name" : "ADC_SADDR",
 					"strict" : false
 				},
 				{
-					"name" : "OUT3",
+					"name" : "ADC_SCLK",
 					"strict" : false
 				},
 				{
-					"name" : "SPACE1",
+					"name" : "MOTORB",
 					"strict" : false
 				},
 				{
-					"name" : "SPACE2",
-					"strict" : false
-				},
-				{
-					"name" : "SPACE3",
+					"name" : "50MHz_CLK",
 					"strict" : false
 				},
 				{
@@ -112,31 +76,15 @@
 					"strict" : false
 				},
 				{
+					"name" : "SCLK_IN",
+					"strict" : false
+				},
+				{
 					"name" : "RESET_BUTTON",
 					"strict" : false
 				},
 				{
-					"name" : "X50MHz_CLK",
-					"strict" : false
-				},
-				{
-					"name" : "CLK",
-					"strict" : false
-				},
-				{
-					"name" : "IN1",
-					"strict" : false
-				},
-				{
-					"name" : "IN2",
-					"strict" : false
-				},
-				{
-					"name" : "IN3",
-					"strict" : false
-				},
-				{
-					"name" : "SCLK_IN",
+					"name" : "SERVO_CS",
 					"strict" : false
 				},
 				{
@@ -148,31 +96,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "WRITE_REQ",
-					"strict" : false
-				},
-				{
-					"name" : "CLR",
-					"strict" : false
-				},
-				{
-					"name" : "READ_REQ",
-					"strict" : false
-				},
-				{
-					"name" : "Switch_3",
-					"strict" : false
-				},
-				{
-					"name" : "Switch_2",
-					"strict" : false
-				},
-				{
-					"name" : "Switch_1",
-					"strict" : false
-				},
-				{
-					"name" : "Switch_0",
+					"name" : "ADC_SDAT",
 					"strict" : false
 				},
 				{

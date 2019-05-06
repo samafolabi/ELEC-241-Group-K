@@ -1,18 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.pwm_reg_pack.ALL;
+use ieee.math_real.all;
  
-entity pwm is 
-  generic(
- SYS_CLK    	     : natural := 50_000;		-- System clock in kHz
- PWM_CLK  	     : natural := 250;			-- PWM clock in kHz
- DUTY_CYCLE_W      : natural := 5;			-- PWM resolution in bits
-PERIOD            : natural := SYS_CLK / (PWM_CLK * 2**DUTY_CYCLE_W);
- PERIOD_W	     : natural := integer(ceil(log2(real(PERIOD+1))));
- 
-    duty     : std_logic_vector(DUTY_CYCLE_W-1 downto 0) := "11100";
-  );
+entity pwm is
   port (
     clk      : in  std_logic;
     rst      : in  std_logic;
@@ -24,10 +15,16 @@ PERIOD            : natural := SYS_CLK / (PWM_CLK * 2**DUTY_CYCLE_W);
 end entity pwm;
  
 architecture rtl of pwm is
+constant SYS_CLK    	     : natural := 50_000;		-- System clock in kHz
+constant PWM_CLK  	     : natural := 250;			-- PWM clock in kHz
+constant DUTY_CYCLE_W      : natural := 5;			-- PWM resolution in bits
+constant PERIOD            : natural := SYS_CLK / (PWM_CLK * 2**DUTY_CYCLE_W);
+constant PERIOD_W	     : natural := integer(ceil(log2(real(PERIOD+1))));
+constant duty     : std_logic_vector(DUTY_CYCLE_W-1 downto 0) := "11100";
+
   signal clk_en    : std_logic;
   signal cnt       : unsigned(PERIOD_W-1 downto 0);
   signal cnt_duty  : unsigned(DUTY_CYCLE_W-1 downto 0);
- 
 begin
   cnt_pr : process(clk, rst)
   begin 
