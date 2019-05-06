@@ -2,12 +2,17 @@
 
 #define DD 25                   //Display Delay us
 #define CD 2000                 //Command Delay us
-#define READ 0x00 						//Read from FIFO
+#define READ_CONFIG 0xF000			//Read the FIFO_CONFIG
+#define READ_ADC 0x0F00					//Read from FIFO buffer
+#define READ_SPACE 0xFF00				//Read the space available
+#define WRITE_CONFIG 0x0000			//Write to FIFO_CONFIG
 #define RESET 0x01							//FIFO_CONFIG - RESET
-#define SAMP 0x02							//FIFO_CONFIG - SAMP
-#define OVERFLOW 0x40							//FIFO_CONFIG - OVERFLOW
+#define SAMP 0x02								//FIFO_CONFIG - SAMP
+#define OVERFLOW 0x40						//FIFO_CONFIG - OVERFLOW
 #define AVAIL 0x80							//FIFO_CONFIG - AVAIL
 #define SAMP_SIZE	8							// Size of sample FIFO buffer
+#define RESOLUTION 12
+#define VREFOFFSET 360
 
 SPI spi(PA_7, PA_6, PA_5);      // Ordered as: mosi, miso, sclk could use forth parameter ssel
                                 // However using multi SPI devices within FPGA with a seperate chip select
@@ -15,7 +20,7 @@ SPI spi_cmd(PA_7, PA_6, PA_5);  // NB another instance call spi_cmd for 8 bit SP
                                 // For each device NB PA_7 PA_6 PA_5 are D11 D12 D13 respectively
 DigitalOut cs(PC_6);            // Chip Select for Basic Outputs to illuminate Onboard FPGA DEO nano LEDs CN7 pin 1
 DigitalOut LCD_cs(PB_15);       // Chip Select for the LCD via FPGA CN7 pin 3
-DigitalOut ADC_cs(PB_9);        // Chip Select for the ADC via FPGA CN7 pin 4
+DigitalOut SERVO_cs(PB_9);        // Chip Select for the ADC via FPGA CN7 pin 4
 InterruptIn user(USER_BUTTON);
 Timer timer;
 
@@ -33,6 +38,13 @@ void init(void);	//initialization functions
 void screen_setup(void);	//clear the screen and put welcome messages
 void risingEdge(void);
 void fallingEdge(void);
+int spi_write(int cmd);
+short power_calc(int arr[]);
+
+char num[] = "0123456789";
+char val[4];
+unsigned int getVolt(unsigned short stored);
+char* convertVolt(unsigned int value);
 
 int samp_en = 0;
 int samples[SAMP_SIZE], overflow_samp[SAMP_SIZE];
@@ -48,11 +60,7 @@ int main() {
 	init();
 	
 	//set RESET bit when MCU resets
-	cs = 0;
-	spi_cmd.write(0);
-	spi.write(RESET);
-	cs = 1;
-	wait_ms(20);
+	spi_write(WRITE_CONFIG | RESET);
 	
 	screen_setup();
 	
@@ -64,39 +72,35 @@ int main() {
 	while(true)
 	{
 		
-		//user.rise(callback(&risingEdge));
-		
 		int i = 0; //sample counter
 		
 		__disable_irq();
 		while(samp_en)
 		{
-			cs = 0;
-			int data = spi.write(AVAIL | OVERFLOW);
-			cs = 1;
+			int data = spi_write(WRITE_CONFIG | (AVAIL | OVERFLOW));
 			
 			if (data & OVERFLOW)
 			{
-				for (int j = 0; j < SAMP_SIZE; j++)
+				/*for (int j = 0; j < SAMP_SIZE; j++)
 				{
-					cs = 0;
-					overflow_samp[j] = spi.write(READ);
-					cs = 1;
+					overflow_samp[j] = spi_write(READ_ADC);
 				}
-				cs = 0;
-				spi.write(SAMP);
-				cs = 1;
+				spi_write(WRITE_CONFIG | SAMP);*/
+				//reset or stop everything and read all in one swoop (the sampling will still occur)
+				continue;
 			}
 			
 			if (data & AVAIL)
 			{
-				cs = 0;
-				samples[i] = spi.write(READ);
-				cs = 1;
+				samples[i] = spi_write(READ_ADC);
 				i = (i+1 == SAMP_SIZE) ? 0 : i+1;
 			}
 		}
 		__enable_irq();
+		
+		//req 3-5
+		lcd_locate(1,8);
+		lcd_display(convertVolt(getVolt(power_calc(samples))));
 		
 	}
     
@@ -145,7 +149,7 @@ void init(void) {
 	//SPI setup
 	cs = 1;                     // Chip must be deselected, Chip Select is active LOW
 	LCD_cs = 1;                 // Chip must be deselected, Chip Select is active LOW
-	ADC_cs = 1;                 // Chip must be deselected, Chip Select is active LOW
+	SERVO_cs = 1;                 // Chip must be deselected, Chip Select is active LOW
 	spi.format(16,0);           // Setup the DATA frame SPI for 16 bit wide word, Clock Polarity 0 and Clock Phase 0 (0)
 	spi_cmd.format(8,0);        // Setup the COMMAND SPI as 8 Bit wide word, Clock Polarity 0 and Clock Phase 0 (0)
 	spi.frequency(1000000);     // 1MHz clock rate
@@ -182,12 +186,53 @@ void fallingEdge(void){
 	user.fall(NULL);
 	if (timer.read() >= 0.1) //switch debounce
 	{
-		cs = 0;
-		spi.write(SAMP);
-		cs = 1;
+		spi_write(WRITE_CONFIG | SAMP);
 		samp_en = 1;
 	}
 	timer.reset();
+}
+int spi_write(int cmd){
+	//tell the cmd
+	cs = 0;
+	spi.write(cmd);
+	cs = 1;
+	wait_ms(1);
+	//get the data
+	cs = 0;
+	int data = spi.write(cmd);
+	cs = 1;
+	return data;
+}
+short power_calc(int arr[]){
+	int no_dc_samps[SAMP_SIZE];
+	int mean_1 = 0, mean_2 = 0, sum_1 = 0, sum_2 = 0;
+	for (int i = 0; i < SAMP_SIZE; i++) {
+		sum_1 += arr[i];
+	}
+	mean_1 /= SAMP_SIZE;
+	for (int i = 0; i < SAMP_SIZE; i++) {
+		no_dc_samps[i] = (arr[i] - mean_1) * (arr[i] - mean_1);
+	}
+	for (int i = 0; i < SAMP_SIZE; i++) {
+		sum_2 += no_dc_samps[i];
+	}
+	mean_2 /= SAMP_SIZE;
+	return (short) mean_2;
+}
+unsigned int getVolt(unsigned short stored)
+{
+	unsigned int offsetVal = (stored*100)/(1<<RESOLUTION);
+	offsetVal *= VREFOFFSET;
+	return offsetVal/100;
+}
+
+char* convertVolt(unsigned int value)
+{
+	val[0] = num[value/100];
+	val[1] = '.';
+	val[2] = num[(value%100)/10];
+	val[3] = num[(value%100)%10];
+	return val;
 }
 int lcd_cls(void){
     LCD_cs = 0;spi_cmd.write(0);spi.write(0x0001);LCD_cs = 1;wait_us(CD);    //Clear Screen
@@ -250,7 +295,7 @@ int bar_graph(uint8_t level){
     return 0; // return code ==0 is OK
 }
 
-int read_adc(void){
+int read_adc(void){/*
     int adval_d;
     float adval_f;
     ADC_cs = 0;
@@ -258,7 +303,7 @@ int read_adc(void){
     ADC_cs =1 ;
     adval_f = 3.3f*((float)adval_d/4095);
     printf("%d %.3fV\r\n",adval_d,adval_f);
-    return adval_d;    
+    return adval_d;   */ 
 }
 
 void pulse_bar_graph(void){
