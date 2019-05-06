@@ -1,5 +1,5 @@
 EDA Netlist Writer report for spi_test
-Mon May 06 21:02:43 2019
+Mon May 06 23:03:40 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -37,7 +37,7 @@ agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Mon May 06 21:02:43 2019 ;
+; EDA Netlist Writer Status ; Successful - Mon May 06 23:03:40 2019 ;
 ; Revision Name             ; spi_test                              ;
 ; Top-level Entity Name     ; spi_test                              ;
 ; Family                    ; Cyclone IV E                          ;
@@ -89,8 +89,9 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Mon May 06 21:02:26 2019
+    Info: Processing started: Mon May 06 23:03:22 2019
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off spi_test -c spi_test
+Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (204019): Generated file spi_test_6_1200mv_85c_slow.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
 Info (204019): Generated file spi_test_6_1200mv_0c_slow.vho in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
@@ -100,10 +101,10 @@ Info (204019): Generated file spi_test_6_1200mv_85c_vhd_slow.sdo in folder "C:/U
 Info (204019): Generated file spi_test_6_1200mv_0c_vhd_slow.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
 Info (204019): Generated file spi_test_min_1200mv_0c_vhd_fast.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
 Info (204019): Generated file spi_test_vhd.sdo in folder "C:/Users/emper/OneDrive - University of Plymouth/ELEC241/ELEC-241-Group-K/FPGA/spi/simulation/modelsim/" for EDA simulation tool
-Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4666 megabytes
-    Info: Processing ended: Mon May 06 21:02:44 2019
-    Info: Elapsed time: 00:00:18
+Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 4670 megabytes
+    Info: Processing ended: Mon May 06 23:03:41 2019
+    Info: Elapsed time: 00:00:19
     Info: Total CPU time (on all processors): 00:00:11
 
 

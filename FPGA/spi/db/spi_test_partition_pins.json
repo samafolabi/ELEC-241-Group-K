@@ -72,11 +72,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "CS_N",
+					"name" : "SCLK_IN",
 					"strict" : false
 				},
 				{
-					"name" : "SCLK_IN",
+					"name" : "CS_N",
 					"strict" : false
 				},
 				{
