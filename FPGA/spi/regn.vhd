@@ -2,11 +2,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity regn is
-   generic( W	: natural  :=	16 );	
+   generic (
+		W		: natural  :=	16 --Data width
+	);	
    port ( 
-      clk     : in    std_logic;      --Clock
-      load    : in    std_logic;      --Clock enable
-      reset   : in    std_logic;      --Async reset
+      clk     : in    std_logic;			--Clock
+      load    : in    std_logic;			--Sync enable
+      reset   : in    std_logic;			--Async reset
       datain  : in    std_logic_vector(W-1 downto 0);	
 		OE      : in    std_logic;			--Output enable
       dataout : out   std_logic_vector(W-1 downto 0)
@@ -19,13 +21,13 @@ begin
 	process (clk, reset)	
 		variable reg : std_logic_vector(W-1 downto 0);
 	begin
-		if (reset = '0') then 
+		if (reset = '0') then --drive the output to Z on reset or error, and on rising edge, latch it if loaded, output if enabled
 			reg := (others => 'Z');	
-			dataout <= reg;	
+			dataout <= reg;
 			
 		elsif (rising_edge(clk)) then
 			if (load = '1') then 
-				reg := datain;		
+				reg := datain;
 			end if;
 			
 			if (OE = '1') then

@@ -1,14 +1,14 @@
-Partition Merge Status : Successful - Mon May 06 23:02:28 2019
+Partition Merge Status : Successful - Tue May 07 00:13:25 2019
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : spi_test
 Top-level Entity Name : spi_test
 Family : Cyclone IV E
-Total logic elements : 1,773
-    Total combinational functions : 1,190
-    Dedicated logic registers : 1,138
-Total registers : 1138
+Total logic elements : 1,799
+    Total combinational functions : 1,231
+    Dedicated logic registers : 1,162
+Total registers : 1162
 Total pins : 28
 Total virtual pins : 0
-Total memory bits : 6,496
+Total memory bits : 5,728
 Embedded Multiplier 9-bit elements : 0
 Total PLLs : 1

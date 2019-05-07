@@ -1,0 +1,127 @@
+library ieee;
+use ieee.numeric_std.all;
+use ieee.std_logic_1164.all;
+
+entity counter_test is
+end counter_test;
+
+architecture v1 of counter_test is
+constant DATA_WIDTH : natural := 8;
+constant T_CLK : time := 20 ns;
+constant T_END : time := 500 ns;
+
+signal D, Y: std_logic_vector(DATA_WIDTH-1 downto 0);
+signal LD, INC, CLK, RESET: std_logic := '0';
+
+procedure wait_fall is
+begin
+	wait until (CLK'DELAYED(1 ps)'EVENT and CLK = '0');
+end wait_fall;
+
+procedure wait_rise is
+begin
+	wait until (CLK'DELAYED(1 ps)'EVENT and CLK = '1');
+end wait_rise;
+
+procedure confirm(expected : std_logic_vector(DATA_WIDTH-1 downto 0)) is
+begin
+	assert(Y = expected)
+		report "Y is not equal to the expected data"
+		severity error;
+end confirm;
+
+component program_counter_reg
+	generic (
+		DATA_WIDTH : natural := 8
+	);
+
+	port (
+		D	 	: in  std_logic_vector((DATA_WIDTH-1) downto 0);
+		LD  	: in  std_logic;
+		INC   : in  std_logic;
+		CLK 	: in  std_logic;
+		RESET : in  std_logic;
+		Y	 	: out std_logic_vector((DATA_WIDTH-1) downto 0)
+	);
+end component;
+
+begin
+	u1 : program_counter_reg
+	generic map (
+		DATA_WIDTH => DATA_WIDTH
+	)
+	port map (
+		D, LD, INC, CLK, RESET, Y
+	);
+	
+	clock : process
+		variable t : time := 0 ns;
+	begin
+		loop
+			t := t + T_CLK;
+			wait for T_CLK;
+			CLK <= not CLK;
+			exit when t >= T_END;
+		end loop;
+		wait;
+	end process clock;
+	
+	main : process
+	begin
+		
+		LD <= '0';
+		INC <= '0';
+		RESET <= '0';
+		
+		wait_fall;
+		RESET <= '1';
+		D <= (others => '1');
+		wait_rise;
+		confirm("00000000");
+		
+		wait_fall;
+		INC <= '1';
+		D <= (others => '1');
+		wait_rise;
+		confirm("00000001");
+		
+		wait_fall;
+		LD <= '1';
+		D <= (others => '1');
+		wait_rise;
+		confirm("11111111");
+		
+		wait_fall;
+		D <= (others => '0');
+		wait_rise;
+		confirm("00000000");
+		
+		wait_fall;
+		LD <= '0';
+		D <= (others => '0');
+		wait_rise;
+		confirm("00000001");
+		D <= "00110110";
+		LD <= '1';
+		confirm("00000001");
+		
+		wait_fall;
+		INC <= '0';
+		wait_rise;
+		confirm("00110110");
+		
+		wait_fall;
+		LD <= '0';
+		D <= "11110001";
+		wait_rise;
+		confirm("00110110");
+		
+		RESET <= '0';
+		wait_fall;
+		LD <= '1';
+		wait_rise;
+		confirm("00000000");
+		
+	wait;
+	end process main;
+END v1;

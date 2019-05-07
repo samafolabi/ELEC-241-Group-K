@@ -13,17 +13,9 @@ MOSI_IN => spi_slave:inst9.mosi
 MOSI_IN => spi_slave:inst13.mosi
 50MHz_CLK => lcd_controller:inst.clk
 50MHz_CLK => inst5.CLK
-50MHz_CLK => spi_controller:inst25.FIFO_CLK
-50MHz_CLK => regn:FIFO_CONFIG.clk
-50MHz_CLK => fifo_controller:inst17.CLK
-50MHz_CLK => adc_controller:inst11.CLK
-50MHz_CLK => regn:SPACE_AVAILABLE2.clk
-50MHz_CLK => regn:SPACE_AVAILABLE1.clk
 50MHz_CLK => spi_PLL:inst14.inclk0
-50MHz_CLK => pwm:inst3.clk
-50MHz_CLK => pwm:inst16.clk
 CS_N => spi_slave:inst9.ss_n
-CS_N => spi_controller:inst25.CS
+CS_N => spi_controller:inst2.CS
 ADC_SDAT => adc_controller:inst11.ADC_IN_DATA
 SERVO_CS => spi_slave:inst13.ss_n
 SERVO_CS => servo_controller:inst27.CS
@@ -531,7 +523,7 @@ busy <= ss_n.DB_MAX_OUTPUT_PORT_TYPE
 miso <= miso.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|spi_test|spi_controller:inst25
+|spi_test|spi_controller:inst2
 FIFO_CLK => asked_read_fall.CLK
 FIFO_CLK => asked_read.CLK
 FIFO_CLK => ASK_FOR_READ~reg0.CLK
@@ -551,11 +543,11 @@ FIFO_CLK => fifo_latch[9].CLK
 FIFO_CLK => fifo_latch[10].CLK
 FIFO_CLK => fifo_latch[11].CLK
 CS => cmd.CLK
-RX_DATA[0] => FIFO_CONFIG_OUT.OUTPUTSELECT
 RX_DATA[0] => latch_set_2.IN1
 RX_DATA[0] => Equal2.IN11
 RX_DATA[0] => Equal3.IN11
-RX_DATA[1] => FIFO_CONFIG_OUT.DATAA
+RX_DATA[0] => FIFO_CONFIG_OUT[1]$latch.DATAIN
+RX_DATA[0] => TX_DATA[1].DATAB
 RX_DATA[1] => Equal2.IN10
 RX_DATA[1] => Equal3.IN10
 RX_DATA[2] => Equal2.IN9
@@ -641,6 +633,8 @@ FIFO_DATA[8] => fifo_latch[8].DATAIN
 FIFO_DATA[9] => fifo_latch[9].DATAIN
 FIFO_DATA[10] => fifo_latch[10].DATAIN
 FIFO_DATA[11] => fifo_latch[11].DATAIN
+FULL => FIFO_CONFIG_OUT.IN1
+RX_REQ => process_2.IN1
 TX_DATA[0] <= TX_DATA[0].DB_MAX_OUTPUT_PORT_TYPE
 TX_DATA[1] <= TX_DATA[1].DB_MAX_OUTPUT_PORT_TYPE
 TX_DATA[2] <= TX_DATA[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -664,191 +658,87 @@ FIFO_CONFIG_OUT[2] <= FIFO_CONFIG_OUT[2]$latch.DB_MAX_OUTPUT_PORT_TYPE
 FIFO_CONFIG_OUT[3] <= FIFO_CONFIG_OUT[3]$latch.DB_MAX_OUTPUT_PORT_TYPE
 FIFO_CONFIG_OUT[4] <= FIFO_CONFIG_OUT[4]$latch.DB_MAX_OUTPUT_PORT_TYPE
 FIFO_CONFIG_OUT[5] <= FIFO_CONFIG_OUT[5]$latch.DB_MAX_OUTPUT_PORT_TYPE
-FIFO_CONFIG_OUT[6] <= Equal0.DB_MAX_OUTPUT_PORT_TYPE
-FIFO_CONFIG_OUT[7] <= Equal1.DB_MAX_OUTPUT_PORT_TYPE
+FIFO_CONFIG_OUT[6] <= Equal1.DB_MAX_OUTPUT_PORT_TYPE
+FIFO_CONFIG_OUT[7] <= FIFO_CONFIG_OUT.DB_MAX_OUTPUT_PORT_TYPE
 RST <= RST~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|spi_test|regn:FIFO_CONFIG
-clk => dataout[0]~reg0.CLK
-clk => dataout[0]~en.CLK
-clk => dataout[1]~reg0.CLK
-clk => dataout[1]~en.CLK
-clk => dataout[2]~reg0.CLK
-clk => dataout[2]~en.CLK
-clk => dataout[3]~reg0.CLK
-clk => dataout[3]~en.CLK
-clk => dataout[4]~reg0.CLK
-clk => dataout[4]~en.CLK
-clk => dataout[5]~reg0.CLK
-clk => dataout[5]~en.CLK
-clk => dataout[6]~reg0.CLK
-clk => dataout[6]~en.CLK
-clk => dataout[7]~reg0.CLK
-clk => dataout[7]~en.CLK
-clk => reg[0].CLK
-clk => reg[0]~en.CLK
-clk => reg[1].CLK
-clk => reg[1]~en.CLK
-clk => reg[2].CLK
-clk => reg[2]~en.CLK
-clk => reg[3].CLK
-clk => reg[3]~en.CLK
-clk => reg[4].CLK
-clk => reg[4]~en.CLK
-clk => reg[5].CLK
-clk => reg[5]~en.CLK
-clk => reg[6].CLK
-clk => reg[6]~en.CLK
-clk => reg[7].CLK
-clk => reg[7]~en.CLK
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg.OUTPUTSELECT
-load => reg[7].ENA
-load => reg[6].ENA
-load => reg[5].ENA
-load => reg[4].ENA
-load => reg[3].ENA
-load => reg[2].ENA
-load => reg[1].ENA
-load => reg[0].ENA
-load => reg[0]~en.ENA
-load => reg[1]~en.ENA
-load => reg[2]~en.ENA
-load => reg[3]~en.ENA
-load => reg[4]~en.ENA
-load => reg[5]~en.ENA
-load => reg[6]~en.ENA
-load => reg[7]~en.ENA
-reset => dataout[0]~en.ACLR
-reset => dataout[1]~en.ACLR
-reset => dataout[2]~en.ACLR
-reset => dataout[3]~en.ACLR
-reset => dataout[4]~en.ACLR
-reset => dataout[5]~en.ACLR
-reset => dataout[6]~en.ACLR
-reset => dataout[7]~en.ACLR
-reset => reg[0]~en.ACLR
-reset => reg[1]~en.ACLR
-reset => reg[2]~en.ACLR
-reset => reg[3]~en.ACLR
-reset => reg[4]~en.ACLR
-reset => reg[5]~en.ACLR
-reset => reg[6]~en.ACLR
-reset => reg[7]~en.ACLR
-datain[0] => reg.DATAB
-datain[0] => reg[0].DATAIN
-datain[1] => reg.DATAB
-datain[1] => reg[1].DATAIN
-datain[2] => reg.DATAB
-datain[2] => reg[2].DATAIN
-datain[3] => reg.DATAB
-datain[3] => reg[3].DATAIN
-datain[4] => reg.DATAB
-datain[4] => reg[4].DATAIN
-datain[5] => reg.DATAB
-datain[5] => reg[5].DATAIN
-datain[6] => reg.DATAB
-datain[6] => reg[6].DATAIN
-datain[7] => reg.DATAB
-datain[7] => reg[7].DATAIN
-OE => dataout[0]~en.DATAIN
-OE => dataout[1]~en.DATAIN
-OE => dataout[2]~en.DATAIN
-OE => dataout[3]~en.DATAIN
-OE => dataout[4]~en.DATAIN
-OE => dataout[5]~en.DATAIN
-OE => dataout[6]~en.DATAIN
-OE => dataout[7]~en.DATAIN
-dataout[0] <= dataout[0].DB_MAX_OUTPUT_PORT_TYPE
-dataout[1] <= dataout[1].DB_MAX_OUTPUT_PORT_TYPE
-dataout[2] <= dataout[2].DB_MAX_OUTPUT_PORT_TYPE
-dataout[3] <= dataout[3].DB_MAX_OUTPUT_PORT_TYPE
-dataout[4] <= dataout[4].DB_MAX_OUTPUT_PORT_TYPE
-dataout[5] <= dataout[5].DB_MAX_OUTPUT_PORT_TYPE
-dataout[6] <= dataout[6].DB_MAX_OUTPUT_PORT_TYPE
-dataout[7] <= dataout[7].DB_MAX_OUTPUT_PORT_TYPE
+|spi_test|spi_PLL:inst14
+inclk0 => altpll:altpll_component.inclk[0]
+c0 <= altpll:altpll_component.clk[0]
 
 
-|spi_test|fifo_controller:inst17
-CLK => SCLK.DATAIN
-CLK => FIFO_READ_REQ~reg0.CLK
-CLK => FIFO_WRITE_REQ~reg0.CLK
-CLK => FIFO_CLR~reg0.CLK
-CLR => FIFO_CLR~reg0.DATAIN
-CLR => FIFO_READ_REQ~reg0.ENA
-CLR => FIFO_WRITE_REQ~reg0.ENA
-DATA_WRITE[0] => FIFO_WRITE[0].DATAIN
-DATA_WRITE[1] => FIFO_WRITE[1].DATAIN
-DATA_WRITE[2] => FIFO_WRITE[2].DATAIN
-DATA_WRITE[3] => FIFO_WRITE[3].DATAIN
-DATA_WRITE[4] => FIFO_WRITE[4].DATAIN
-DATA_WRITE[5] => FIFO_WRITE[5].DATAIN
-DATA_WRITE[6] => FIFO_WRITE[6].DATAIN
-DATA_WRITE[7] => FIFO_WRITE[7].DATAIN
-DATA_WRITE[8] => FIFO_WRITE[8].DATAIN
-DATA_WRITE[9] => FIFO_WRITE[9].DATAIN
-DATA_WRITE[10] => FIFO_WRITE[10].DATAIN
-DATA_WRITE[11] => FIFO_WRITE[11].DATAIN
-DATA_READ[0] => FIFO_READ[0].DATAIN
-DATA_READ[1] => FIFO_READ[1].DATAIN
-DATA_READ[2] => FIFO_READ[2].DATAIN
-DATA_READ[3] => FIFO_READ[3].DATAIN
-DATA_READ[4] => FIFO_READ[4].DATAIN
-DATA_READ[5] => FIFO_READ[5].DATAIN
-DATA_READ[6] => FIFO_READ[6].DATAIN
-DATA_READ[7] => FIFO_READ[7].DATAIN
-DATA_READ[8] => FIFO_READ[8].DATAIN
-DATA_READ[9] => FIFO_READ[9].DATAIN
-DATA_READ[10] => FIFO_READ[10].DATAIN
-DATA_READ[11] => FIFO_READ[11].DATAIN
-FULL => process_0.IN0
-EMPTY => process_0.IN0
-WORDS_USED[0] => SPACE_AVAILABLE[0].DATAIN
-WORDS_USED[1] => SPACE_AVAILABLE[1].DATAIN
-WORDS_USED[2] => SPACE_AVAILABLE[2].DATAIN
-READ_REQ => process_0.IN1
-WRITE_REQ => process_0.IN1
-SCLK <= CLK.DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[0] <= DATA_WRITE[0].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[1] <= DATA_WRITE[1].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[2] <= DATA_WRITE[2].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[3] <= DATA_WRITE[3].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[4] <= DATA_WRITE[4].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[5] <= DATA_WRITE[5].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[6] <= DATA_WRITE[6].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[7] <= DATA_WRITE[7].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[8] <= DATA_WRITE[8].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[9] <= DATA_WRITE[9].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[10] <= DATA_WRITE[10].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE[11] <= DATA_WRITE[11].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[0] <= DATA_READ[0].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[1] <= DATA_READ[1].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[2] <= DATA_READ[2].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[3] <= DATA_READ[3].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[4] <= DATA_READ[4].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[5] <= DATA_READ[5].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[6] <= DATA_READ[6].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[7] <= DATA_READ[7].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[8] <= DATA_READ[8].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[9] <= DATA_READ[9].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[10] <= DATA_READ[10].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ[11] <= DATA_READ[11].DB_MAX_OUTPUT_PORT_TYPE
-FIFO_CLR <= FIFO_CLR~reg0.DB_MAX_OUTPUT_PORT_TYPE
-FIFO_WRITE_REQ <= FIFO_WRITE_REQ~reg0.DB_MAX_OUTPUT_PORT_TYPE
-FIFO_READ_REQ <= FIFO_READ_REQ~reg0.DB_MAX_OUTPUT_PORT_TYPE
-SPACE_AVAILABLE[0] <= WORDS_USED[0].DB_MAX_OUTPUT_PORT_TYPE
-SPACE_AVAILABLE[1] <= WORDS_USED[1].DB_MAX_OUTPUT_PORT_TYPE
-SPACE_AVAILABLE[2] <= WORDS_USED[2].DB_MAX_OUTPUT_PORT_TYPE
+|spi_test|spi_PLL:inst14|altpll:altpll_component
+inclk[0] => spi_PLL_altpll:auto_generated.inclk[0]
+inclk[1] => spi_PLL_altpll:auto_generated.inclk[1]
+fbin => ~NO_FANOUT~
+pllena => ~NO_FANOUT~
+clkswitch => ~NO_FANOUT~
+areset => ~NO_FANOUT~
+pfdena => ~NO_FANOUT~
+clkena[0] => ~NO_FANOUT~
+clkena[1] => ~NO_FANOUT~
+clkena[2] => ~NO_FANOUT~
+clkena[3] => ~NO_FANOUT~
+clkena[4] => ~NO_FANOUT~
+clkena[5] => ~NO_FANOUT~
+extclkena[0] => ~NO_FANOUT~
+extclkena[1] => ~NO_FANOUT~
+extclkena[2] => ~NO_FANOUT~
+extclkena[3] => ~NO_FANOUT~
+scanclk => ~NO_FANOUT~
+scanclkena => ~NO_FANOUT~
+scanaclr => ~NO_FANOUT~
+scanread => ~NO_FANOUT~
+scanwrite => ~NO_FANOUT~
+scandata => ~NO_FANOUT~
+phasecounterselect[0] => ~NO_FANOUT~
+phasecounterselect[1] => ~NO_FANOUT~
+phasecounterselect[2] => ~NO_FANOUT~
+phasecounterselect[3] => ~NO_FANOUT~
+phaseupdown => ~NO_FANOUT~
+phasestep => ~NO_FANOUT~
+configupdate => ~NO_FANOUT~
+fbmimicbidir <> <GND>
+clk[0] <= clk[0].DB_MAX_OUTPUT_PORT_TYPE
+clk[1] <= clk[1].DB_MAX_OUTPUT_PORT_TYPE
+clk[2] <= clk[2].DB_MAX_OUTPUT_PORT_TYPE
+clk[3] <= clk[3].DB_MAX_OUTPUT_PORT_TYPE
+clk[4] <= clk[4].DB_MAX_OUTPUT_PORT_TYPE
+extclk[0] <= <GND>
+extclk[1] <= <GND>
+extclk[2] <= <GND>
+extclk[3] <= <GND>
+clkbad[0] <= <GND>
+clkbad[1] <= <GND>
+enable1 <= <GND>
+enable0 <= <GND>
+activeclock <= <GND>
+clkloss <= <GND>
+locked <= <GND>
+scandataout <= <GND>
+scandone <= <GND>
+sclkout0 <= <GND>
+sclkout1 <= <GND>
+phasedone <= <GND>
+vcooverrange <= <GND>
+vcounderrange <= <GND>
+fbout <= <GND>
+fref <= <GND>
+icdrclk <= <GND>
 
 
-|spi_test|SCFIFO:inst18
+|spi_test|spi_PLL:inst14|altpll:altpll_component|spi_PLL_altpll:auto_generated
+clk[0] <= pll1.CLK
+clk[1] <= pll1.CLK1
+clk[2] <= pll1.CLK2
+clk[3] <= pll1.CLK3
+clk[4] <= pll1.CLK4
+inclk[0] => pll1.CLK
+inclk[1] => pll1.CLK1
+
+
+|spi_test|scfifo:inst18
 data[0] => scfifo_tr71:auto_generated.data[0]
 data[1] => scfifo_tr71:auto_generated.data[1]
 data[2] => scfifo_tr71:auto_generated.data[2]
@@ -889,7 +779,7 @@ usedw[1] <= scfifo_tr71:auto_generated.usedw[1]
 usedw[2] <= scfifo_tr71:auto_generated.usedw[2]
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated
 aclr => ~NO_FANOUT~
 almost_empty <= almost_empty.DB_MAX_OUTPUT_PORT_TYPE
 almost_full <= dffe_af.DB_MAX_OUTPUT_PORT_TYPE
@@ -942,7 +832,7 @@ wrreq => _.IN0
 wrreq => _.IN1
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo
 clock => a_fefifo_m4f:fifo_state.clock
 clock => altsyncram_ugm1:FIFOram.clock0
 clock => altsyncram_ugm1:FIFOram.clock1
@@ -988,7 +878,7 @@ wreq => a_fefifo_m4f:fifo_state.wreq
 wreq => valid_wreq.IN0
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|a_fefifo_m4f:fifo_state
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|a_fefifo_m4f:fifo_state
 aclr => b_full.IN0
 aclr => b_non_empty.IN0
 aclr => cntr_ao7:count_usedw.aclr
@@ -1016,7 +906,7 @@ wreq => _.IN0
 wreq => valid_wreq.IN0
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|a_fefifo_m4f:fifo_state|cntr_ao7:count_usedw
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|a_fefifo_m4f:fifo_state|cntr_ao7:count_usedw
 aclr => counter_reg_bit[2].IN0
 clock => counter_reg_bit[2].CLK
 clock => counter_reg_bit[1].CLK
@@ -1033,7 +923,7 @@ updown => counter_comb_bita1.DATAB
 updown => counter_comb_bita2.DATAB
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|altsyncram_ugm1:FIFOram
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|altsyncram_ugm1:FIFOram
 address_a[0] => ram_block1a0.PORTAADDR
 address_a[0] => ram_block1a1.PORTAADDR
 address_a[0] => ram_block1a2.PORTAADDR
@@ -1180,7 +1070,7 @@ wren_a => ram_block1a10.PORTAWE
 wren_a => ram_block1a11.PORTAWE
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|cntr_unb:rd_ptr_count
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|cntr_unb:rd_ptr_count
 aclr => counter_reg_bit[2].IN0
 clock => counter_reg_bit[2].CLK
 clock => counter_reg_bit[1].CLK
@@ -1194,7 +1084,7 @@ sclr => _.IN0
 sclr => _.IN0
 
 
-|spi_test|SCFIFO:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|cntr_unb:wr_ptr
+|spi_test|scfifo:inst18|scfifo_tr71:auto_generated|a_dpfifo_get:dpfifo|cntr_unb:wr_ptr
 aclr => counter_reg_bit[2].IN0
 clock => counter_reg_bit[2].CLK
 clock => counter_reg_bit[1].CLK
@@ -1206,6 +1096,78 @@ q[2] <= counter_reg_bit[2].DB_MAX_OUTPUT_PORT_TYPE
 sclr => _.IN0
 sclr => _.IN0
 sclr => _.IN0
+
+
+|spi_test|fifo_controller:inst17
+CLK => SCLK.DATAIN
+CLK => FIFO_READ_REQ~reg0.CLK
+CLK => FIFO_WRITE_REQ~reg0.CLK
+CLK => FIFO_CLR~reg0.CLK
+CLR => FIFO_CLR~reg0.DATAIN
+CLR => FIFO_READ_REQ~reg0.ENA
+CLR => FIFO_WRITE_REQ~reg0.ENA
+DATA_WRITE[0] => FIFO_WRITE[0].DATAIN
+DATA_WRITE[1] => FIFO_WRITE[1].DATAIN
+DATA_WRITE[2] => FIFO_WRITE[2].DATAIN
+DATA_WRITE[3] => FIFO_WRITE[3].DATAIN
+DATA_WRITE[4] => FIFO_WRITE[4].DATAIN
+DATA_WRITE[5] => FIFO_WRITE[5].DATAIN
+DATA_WRITE[6] => FIFO_WRITE[6].DATAIN
+DATA_WRITE[7] => FIFO_WRITE[7].DATAIN
+DATA_WRITE[8] => FIFO_WRITE[8].DATAIN
+DATA_WRITE[9] => FIFO_WRITE[9].DATAIN
+DATA_WRITE[10] => FIFO_WRITE[10].DATAIN
+DATA_WRITE[11] => FIFO_WRITE[11].DATAIN
+DATA_READ[0] => FIFO_READ[0].DATAIN
+DATA_READ[1] => FIFO_READ[1].DATAIN
+DATA_READ[2] => FIFO_READ[2].DATAIN
+DATA_READ[3] => FIFO_READ[3].DATAIN
+DATA_READ[4] => FIFO_READ[4].DATAIN
+DATA_READ[5] => FIFO_READ[5].DATAIN
+DATA_READ[6] => FIFO_READ[6].DATAIN
+DATA_READ[7] => FIFO_READ[7].DATAIN
+DATA_READ[8] => FIFO_READ[8].DATAIN
+DATA_READ[9] => FIFO_READ[9].DATAIN
+DATA_READ[10] => FIFO_READ[10].DATAIN
+DATA_READ[11] => FIFO_READ[11].DATAIN
+FULL => process_0.IN0
+EMPTY => process_0.IN0
+WORDS_USED[0] => SPACE_AVAILABLE[0].DATAIN
+WORDS_USED[1] => SPACE_AVAILABLE[1].DATAIN
+WORDS_USED[2] => SPACE_AVAILABLE[2].DATAIN
+READ_REQ => process_0.IN1
+WRITE_REQ => process_0.IN1
+SCLK <= CLK.DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[0] <= DATA_WRITE[0].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[1] <= DATA_WRITE[1].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[2] <= DATA_WRITE[2].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[3] <= DATA_WRITE[3].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[4] <= DATA_WRITE[4].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[5] <= DATA_WRITE[5].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[6] <= DATA_WRITE[6].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[7] <= DATA_WRITE[7].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[8] <= DATA_WRITE[8].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[9] <= DATA_WRITE[9].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[10] <= DATA_WRITE[10].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE[11] <= DATA_WRITE[11].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[0] <= DATA_READ[0].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[1] <= DATA_READ[1].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[2] <= DATA_READ[2].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[3] <= DATA_READ[3].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[4] <= DATA_READ[4].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[5] <= DATA_READ[5].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[6] <= DATA_READ[6].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[7] <= DATA_READ[7].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[8] <= DATA_READ[8].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[9] <= DATA_READ[9].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[10] <= DATA_READ[10].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ[11] <= DATA_READ[11].DB_MAX_OUTPUT_PORT_TYPE
+FIFO_CLR <= FIFO_CLR~reg0.DB_MAX_OUTPUT_PORT_TYPE
+FIFO_WRITE_REQ <= FIFO_WRITE_REQ~reg0.DB_MAX_OUTPUT_PORT_TYPE
+FIFO_READ_REQ <= FIFO_READ_REQ~reg0.DB_MAX_OUTPUT_PORT_TYPE
+SPACE_AVAILABLE[0] <= WORDS_USED[0].DB_MAX_OUTPUT_PORT_TYPE
+SPACE_AVAILABLE[1] <= WORDS_USED[1].DB_MAX_OUTPUT_PORT_TYPE
+SPACE_AVAILABLE[2] <= WORDS_USED[2].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |spi_test|adc_controller:inst11
@@ -1352,8 +1314,8 @@ ADC_IN_DATA => out_buf[9].DATAIN
 ADC_IN_DATA => out_buf[10].DATAIN
 SCLK <= CLK.DB_MAX_OUTPUT_PORT_TYPE
 CS_N <= CS_N$latch.DB_MAX_OUTPUT_PORT_TYPE
-SADDR <= Selector64.DB_MAX_OUTPUT_PORT_TYPE
-DATA_READY <= CS_N.DB_MAX_OUTPUT_PORT_TYPE
+SADDR <= <GND>
+DATA_READY <= process_1.DB_MAX_OUTPUT_PORT_TYPE
 ADC_OUT_DATA[0] <= ADC_OUT_DATA[0]$latch.DB_MAX_OUTPUT_PORT_TYPE
 ADC_OUT_DATA[1] <= ADC_OUT_DATA[1]$latch.DB_MAX_OUTPUT_PORT_TYPE
 ADC_OUT_DATA[2] <= ADC_OUT_DATA[2]$latch.DB_MAX_OUTPUT_PORT_TYPE
@@ -1366,6 +1328,113 @@ ADC_OUT_DATA[8] <= ADC_OUT_DATA[8]$latch.DB_MAX_OUTPUT_PORT_TYPE
 ADC_OUT_DATA[9] <= ADC_OUT_DATA[9]$latch.DB_MAX_OUTPUT_PORT_TYPE
 ADC_OUT_DATA[10] <= ADC_OUT_DATA[10]$latch.DB_MAX_OUTPUT_PORT_TYPE
 ADC_OUT_DATA[11] <= ADC_OUT_DATA[11]$latch.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|spi_test|regn:FIFO_CONFIG
+clk => dataout[0]~reg0.CLK
+clk => dataout[0]~en.CLK
+clk => dataout[1]~reg0.CLK
+clk => dataout[1]~en.CLK
+clk => dataout[2]~reg0.CLK
+clk => dataout[2]~en.CLK
+clk => dataout[3]~reg0.CLK
+clk => dataout[3]~en.CLK
+clk => dataout[4]~reg0.CLK
+clk => dataout[4]~en.CLK
+clk => dataout[5]~reg0.CLK
+clk => dataout[5]~en.CLK
+clk => dataout[6]~reg0.CLK
+clk => dataout[6]~en.CLK
+clk => dataout[7]~reg0.CLK
+clk => dataout[7]~en.CLK
+clk => reg[0].CLK
+clk => reg[0]~en.CLK
+clk => reg[1].CLK
+clk => reg[1]~en.CLK
+clk => reg[2].CLK
+clk => reg[2]~en.CLK
+clk => reg[3].CLK
+clk => reg[3]~en.CLK
+clk => reg[4].CLK
+clk => reg[4]~en.CLK
+clk => reg[5].CLK
+clk => reg[5]~en.CLK
+clk => reg[6].CLK
+clk => reg[6]~en.CLK
+clk => reg[7].CLK
+clk => reg[7]~en.CLK
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg.OUTPUTSELECT
+load => reg[7].ENA
+load => reg[6].ENA
+load => reg[5].ENA
+load => reg[4].ENA
+load => reg[3].ENA
+load => reg[2].ENA
+load => reg[1].ENA
+load => reg[0].ENA
+load => reg[0]~en.ENA
+load => reg[1]~en.ENA
+load => reg[2]~en.ENA
+load => reg[3]~en.ENA
+load => reg[4]~en.ENA
+load => reg[5]~en.ENA
+load => reg[6]~en.ENA
+load => reg[7]~en.ENA
+reset => dataout[0]~en.ACLR
+reset => dataout[1]~en.ACLR
+reset => dataout[2]~en.ACLR
+reset => dataout[3]~en.ACLR
+reset => dataout[4]~en.ACLR
+reset => dataout[5]~en.ACLR
+reset => dataout[6]~en.ACLR
+reset => dataout[7]~en.ACLR
+reset => reg[0]~en.ACLR
+reset => reg[1]~en.ACLR
+reset => reg[2]~en.ACLR
+reset => reg[3]~en.ACLR
+reset => reg[4]~en.ACLR
+reset => reg[5]~en.ACLR
+reset => reg[6]~en.ACLR
+reset => reg[7]~en.ACLR
+datain[0] => reg.DATAB
+datain[0] => reg[0].DATAIN
+datain[1] => reg.DATAB
+datain[1] => reg[1].DATAIN
+datain[2] => reg.DATAB
+datain[2] => reg[2].DATAIN
+datain[3] => reg.DATAB
+datain[3] => reg[3].DATAIN
+datain[4] => reg.DATAB
+datain[4] => reg[4].DATAIN
+datain[5] => reg.DATAB
+datain[5] => reg[5].DATAIN
+datain[6] => reg.DATAB
+datain[6] => reg[6].DATAIN
+datain[7] => reg.DATAB
+datain[7] => reg[7].DATAIN
+OE => dataout[0]~en.DATAIN
+OE => dataout[1]~en.DATAIN
+OE => dataout[2]~en.DATAIN
+OE => dataout[3]~en.DATAIN
+OE => dataout[4]~en.DATAIN
+OE => dataout[5]~en.DATAIN
+OE => dataout[6]~en.DATAIN
+OE => dataout[7]~en.DATAIN
+dataout[0] <= dataout[0].DB_MAX_OUTPUT_PORT_TYPE
+dataout[1] <= dataout[1].DB_MAX_OUTPUT_PORT_TYPE
+dataout[2] <= dataout[2].DB_MAX_OUTPUT_PORT_TYPE
+dataout[3] <= dataout[3].DB_MAX_OUTPUT_PORT_TYPE
+dataout[4] <= dataout[4].DB_MAX_OUTPUT_PORT_TYPE
+dataout[5] <= dataout[5].DB_MAX_OUTPUT_PORT_TYPE
+dataout[6] <= dataout[6].DB_MAX_OUTPUT_PORT_TYPE
+dataout[7] <= dataout[7].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |spi_test|regn:SPACE_AVAILABLE2
@@ -1706,6 +1775,8 @@ STATE => max[3].ENA
 STATE => max[2].ENA
 STATE => max[1].ENA
 STATE => max[0].ENA
+STATE => t.ENA
+CHANGED => t.CLK
 CHANGED => max[0].CLK
 CHANGED => max[1].CLK
 CHANGED => max[2].CLK
@@ -1889,81 +1960,6 @@ dataout[5] <= dataout[5].DB_MAX_OUTPUT_PORT_TYPE
 dataout[6] <= dataout[6].DB_MAX_OUTPUT_PORT_TYPE
 dataout[7] <= dataout[7].DB_MAX_OUTPUT_PORT_TYPE
 dataout[8] <= dataout[8].DB_MAX_OUTPUT_PORT_TYPE
-
-
-|spi_test|spi_PLL:inst14
-inclk0 => altpll:altpll_component.inclk[0]
-c0 <= altpll:altpll_component.clk[0]
-
-
-|spi_test|spi_PLL:inst14|altpll:altpll_component
-inclk[0] => spi_PLL_altpll:auto_generated.inclk[0]
-inclk[1] => spi_PLL_altpll:auto_generated.inclk[1]
-fbin => ~NO_FANOUT~
-pllena => ~NO_FANOUT~
-clkswitch => ~NO_FANOUT~
-areset => ~NO_FANOUT~
-pfdena => ~NO_FANOUT~
-clkena[0] => ~NO_FANOUT~
-clkena[1] => ~NO_FANOUT~
-clkena[2] => ~NO_FANOUT~
-clkena[3] => ~NO_FANOUT~
-clkena[4] => ~NO_FANOUT~
-clkena[5] => ~NO_FANOUT~
-extclkena[0] => ~NO_FANOUT~
-extclkena[1] => ~NO_FANOUT~
-extclkena[2] => ~NO_FANOUT~
-extclkena[3] => ~NO_FANOUT~
-scanclk => ~NO_FANOUT~
-scanclkena => ~NO_FANOUT~
-scanaclr => ~NO_FANOUT~
-scanread => ~NO_FANOUT~
-scanwrite => ~NO_FANOUT~
-scandata => ~NO_FANOUT~
-phasecounterselect[0] => ~NO_FANOUT~
-phasecounterselect[1] => ~NO_FANOUT~
-phasecounterselect[2] => ~NO_FANOUT~
-phasecounterselect[3] => ~NO_FANOUT~
-phaseupdown => ~NO_FANOUT~
-phasestep => ~NO_FANOUT~
-configupdate => ~NO_FANOUT~
-fbmimicbidir <> <GND>
-clk[0] <= clk[0].DB_MAX_OUTPUT_PORT_TYPE
-clk[1] <= clk[1].DB_MAX_OUTPUT_PORT_TYPE
-clk[2] <= clk[2].DB_MAX_OUTPUT_PORT_TYPE
-clk[3] <= clk[3].DB_MAX_OUTPUT_PORT_TYPE
-clk[4] <= clk[4].DB_MAX_OUTPUT_PORT_TYPE
-extclk[0] <= <GND>
-extclk[1] <= <GND>
-extclk[2] <= <GND>
-extclk[3] <= <GND>
-clkbad[0] <= <GND>
-clkbad[1] <= <GND>
-enable1 <= <GND>
-enable0 <= <GND>
-activeclock <= <GND>
-clkloss <= <GND>
-locked <= <GND>
-scandataout <= <GND>
-scandone <= <GND>
-sclkout0 <= <GND>
-sclkout1 <= <GND>
-phasedone <= <GND>
-vcooverrange <= <GND>
-vcounderrange <= <GND>
-fbout <= <GND>
-fref <= <GND>
-icdrclk <= <GND>
-
-
-|spi_test|spi_PLL:inst14|altpll:altpll_component|spi_PLL_altpll:auto_generated
-clk[0] <= pll1.CLK
-clk[1] <= pll1.CLK1
-clk[2] <= pll1.CLK2
-clk[3] <= pll1.CLK3
-clk[4] <= pll1.CLK4
-inclk[0] => pll1.CLK
-inclk[1] => pll1.CLK1
 
 
 |spi_test|pwm:inst3

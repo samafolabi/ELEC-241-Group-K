@@ -56,35 +56,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_SADDR",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_SCLK",
-					"strict" : false
-				},
-				{
-					"name" : "MOTORB",
-					"strict" : false
-				},
-				{
 					"name" : "50MHz_CLK",
-					"strict" : false
-				},
-				{
-					"name" : "SCLK_IN",
-					"strict" : false
-				},
-				{
-					"name" : "CS_N",
-					"strict" : false
-				},
-				{
-					"name" : "RESET_BUTTON",
-					"strict" : false
-				},
-				{
-					"name" : "SERVO_CS",
 					"strict" : false
 				},
 				{
@@ -92,7 +64,23 @@
 					"strict" : false
 				},
 				{
+					"name" : "RESET_BUTTON",
+					"strict" : false
+				},
+				{
+					"name" : "CS_N",
+					"strict" : false
+				},
+				{
 					"name" : "MOSI_IN",
+					"strict" : false
+				},
+				{
+					"name" : "SCLK_IN",
+					"strict" : false
+				},
+				{
+					"name" : "SERVO_CS",
 					"strict" : false
 				},
 				{

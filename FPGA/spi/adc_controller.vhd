@@ -67,14 +67,14 @@ begin
 			when 4 to 14 =>
 				out_buf(10-(rising_state-4)) <= ADC_IN_DATA;
 				DATA_READY <= '0';
-			when 15 =>
+			when 15 to 16 =>
 				ADC_OUT_DATA(0) <= ADC_IN_DATA;
 				CS_N <= '1';
 				ADC_OUT_DATA(11 downto 1) <= out_buf;
 				DATA_READY <= '1';
 			when others =>
 				CS_N <= '1';
-				DATA_READY <= '1';
+				DATA_READY <= '0';
 		end case;
 	
 		case falling_state is

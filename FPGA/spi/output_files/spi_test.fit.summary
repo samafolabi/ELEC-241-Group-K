@@ -1,16 +1,16 @@
-Fitter Status : Successful - Mon May 06 23:02:52 2019
+Fitter Status : Successful - Tue May 07 08:02:56 2019
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : spi_test
 Top-level Entity Name : spi_test
 Family : Cyclone IV E
 Device : EP4CE22F17C6
 Timing Models : Final
-Total logic elements : 1,741 / 22,320 ( 8 % )
-    Total combinational functions : 1,199 / 22,320 ( 5 % )
-    Dedicated logic registers : 1,138 / 22,320 ( 5 % )
-Total registers : 1138
+Total logic elements : 2,679 / 22,320 ( 12 % )
+    Total combinational functions : 1,456 / 22,320 ( 7 % )
+    Dedicated logic registers : 2,034 / 22,320 ( 9 % )
+Total registers : 2034
 Total pins : 28 / 154 ( 18 % )
 Total virtual pins : 0
-Total memory bits : 6,496 / 608,256 ( 1 % )
+Total memory bits : 18,528 / 608,256 ( 3 % )
 Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
 Total PLLs : 1 / 4 ( 25 % )

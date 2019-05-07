@@ -21,19 +21,22 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
 Dialog DLL:      TCM.DLL V1.27.0.0
  
 <h2>Project:</h2>
-C:\Users\emper\OneDrive - University of Plymouth\ELEC241\ELEC240_SPI_HelloWorld\ELEC240_SPI_HelloWorld.uvprojx
-Project File Date:  04/23/2019
+C:\Users\emper\OneDrive - University of Plymouth\ELEC241\ELEC-241-Group-K\MCU\ELEC240_SPI_HelloWorld\ELEC240_SPI_HelloWorld.uvprojx
+Project File Date:  04/29/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'ELEC240_SPI_HelloWorld'
 compiling main.cpp...
-main.cpp(133): error:  #20: identifier "t" is undefined
-        t.start();
-main.cpp(136): error:  #20: identifier "t" is undefined
-        t.stop();
-main.cpp: 0 warnings, 2 errors
-".\BUILD\ELEC240_SPI_HelloWorld.axf" - 2 Error(s), 0 Warning(s).
+main.cpp(187): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        if (timer.read() >= 0.1) //switch debounce
+main.cpp(307): warning:  #940-D: missing return statement at end of non-void function "read_adc" 
+  }
+main.cpp: 2 warnings, 0 errors
+linking...
+.\BUILD\ELEC240_SPI_HelloWorld.axf: error: L6047U: The size of this image (33344 bytes) exceeds the maximum allowed for this version of the linker
+Finished: 0 information, 0 warning, 0 error and 1 fatal error messages.
+".\BUILD\ELEC240_SPI_HelloWorld.axf" - 1 Error(s), 2 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_ELEC240_SPI_HelloWorld
@@ -41,7 +44,7 @@ main.cpp: 0 warnings, 2 errors
 
 <h2>Collection of Component Files used:</h2>
 Target not created.
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
