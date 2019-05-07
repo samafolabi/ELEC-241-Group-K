@@ -110,7 +110,6 @@ set_global_assignment -name BDF_FILE output_files/spi_test.bdf
 set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
 set_global_assignment -name QIP_FILE spi_PLL.qip
 set_global_assignment -name VHDL_FILE adc_controller.vhd
-set_global_assignment -name VHDL_FILE tests/adc_test/adc_controller_tb.vhd
 set_global_assignment -name VHDL_FILE spi_controller.vhd
 set_location_assignment PIN_A4 -to SERVO_CS
 set_global_assignment -name VHDL_FILE servo_controller.vhd
@@ -354,7 +353,5 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=220" -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=72" -section_id auto_signaltap_0
-set_global_assignment -name VHDL_FILE tests/regn_tb.vhd
-set_global_assignment -name VHDL_FILE tests/pwm_tb.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SLD_FILE db/stp2_auto_stripped.stp

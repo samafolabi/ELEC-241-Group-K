@@ -39,22 +39,19 @@ short power_calc(int arr[]);				//calculate mean squared value of samples
 char* angle_calc(short angle);
 
 const char num[] = "0123456789";							//number to string conversion
-char val[4];																	//value of the power calculation in string form
-char val_a[3];																	//value of angle calculation in string form
+char val[5];																	//value of the power calculation in string form
+char val_a[4];																	//value of angle calculation in string form
 unsigned int getVolt(unsigned short stored);	//get offset voltage value from adc data
 char* convertVolt(unsigned int value);				//convert offset voltage value to a string
 
 int samp_en = 0;					//sample enable
 int samples[SAMP_SIZE];		//samples array
+short angle;
 char* rst = "RST!";	//reset string
 
 //NBB the following line for F429ZI !!!!
 DigitalIn DO_NOT_USE(PB_12);    // MAKE PB_12 (D19) an INPUT do NOT make an OUTPUT under any circumstances !!!!! ************* !!!!!!!!!!!
                                 // This Pin is connected to the 5VDC from the FPGA card and an INPUT is 5V Tolerant
-
-
-int test_samples[] = {246, 123, 489, 798, 932, 135, 384, 947};
-int test_angles[] = {512, 256, 768};
 
 int main() {
 	
@@ -71,18 +68,8 @@ int main() {
 	
 	while(true)
 	{
-		for (int i = 0; i < 8; i++){
-		lcd_locate(1,8); //calculate the mean squared value and display on LCD
-		lcd_display(convertVolt(getVolt(power_calc(test_samples))));
-		test_samples[i] += 10;
-		lcd_locate(2,0);
-		lcd_display(angle_calc(test_angles[i]));
-		lcd_display(" degrees");
 		
-		wait(1);
-		}
-		
-		/*int i = 0; //sample counter
+		int i = 0; //sample counter
 		user.rise(callback(&risingEdge)); //attach the button trigger
 		
 		__disable_irq(); //safety for samp_en
@@ -107,8 +94,11 @@ int main() {
 			lcd_locate(1,8); //calculate the mean squared value and display on LCD
 			lcd_display(convertVolt(getVolt(power_calc(samples))));
 			
+			lcd_locate(2,0); //calculate hand angle and display
+			lcd_display(angle_calc(angle));
+			
 		}
-		__enable_irq();*/
+		__enable_irq();
 		
 	}
     
@@ -146,6 +136,8 @@ void screen_setup(void){
 	lcd_locate(1,12);
 	lcd_display("V");
 }
+
+
 void risingEdge(void){
 	user.rise(NULL); //remove rising trigger, add falling trigger, and start timer
 	user.fall(callback(&fallingEdge));
@@ -163,6 +155,8 @@ void fallingEdge(void){
 		timer.start();
 	}
 }
+
+
 unsigned short spi_write(int cmd){
 	//set the cmd
 	cs = 0;
@@ -201,6 +195,7 @@ char* angle_calc(short angle){
 	val_a[0] = num[angle/100]; //construct a string
 	val_a[1] = num[(angle%100)/10];
 	val_a[2] = num[(angle%100)%10];
+	val_a[3] = '\0';
 	return val_a;
 }
 unsigned int getVolt(unsigned short stored){
@@ -214,6 +209,7 @@ char* convertVolt(unsigned int value){
 	val[1] = '.';
 	val[2] = num[(value%100)/10];
 	val[3] = num[(value%100)%10];
+	val[4] = '\0';
 	return val;
 }
 int lcd_cls(void){
